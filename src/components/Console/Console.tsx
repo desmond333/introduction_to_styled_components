@@ -4,7 +4,7 @@ import {Flex} from '../common components/Flex/Flex'
 import {Line} from './Line/Line'
 
 const StyledConsole = styled.textarea<{
-    color: string
+    color?: string
 }>`
   background: black;
   width: 80%;
@@ -13,15 +13,19 @@ const StyledConsole = styled.textarea<{
   resize: none;
   font-size: 1.5rem;
 
+  color: ${props => props.color || props.theme.colors.primary};
+  
   &:focus {
     outline: none;
   }
-
-  color: ${({color}) => color || 'white'};
+  
+  @media ${props => props.theme.media.phone} {
+      border: 1px solid ${props => props.theme.colors.primary};
+  }
 `
 
 interface IConsoleProps {
-    color: string
+    color?: string
 }
 
 export const Console: FC<IConsoleProps> = ({color, ...props}): JSX.Element => {
@@ -37,10 +41,10 @@ export const Console: FC<IConsoleProps> = ({color, ...props}): JSX.Element => {
         <Flex>
             <Flex direction={'column'} margin={'0 10px'}>
                 {lines.map((line) => {
-                    return <Line color={color}>{line}</Line>
+                    return <Line color={''} key={Date.now()}>{line}</Line>
                 })}
             </Flex>
-            <StyledConsole spellCheck={false} autoFocus onKeyPress={onKeyPress} color={color} {...props}/>
+            <StyledConsole spellCheck={false} autoFocus onKeyPress={onKeyPress} {...props}/>
         </Flex>
     )
 }

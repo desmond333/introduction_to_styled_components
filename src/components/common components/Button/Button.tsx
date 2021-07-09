@@ -39,8 +39,8 @@ const StyledButton = styled.button<{
   `}
 
   ${props => props.outlined && css`
-    color: ${(props: any) => props.color || 'white'};
-    border: 1px solid ${(props: any) => props.color || 'white'};
+    color: ${(props: any) => props.color || props.theme.colors.primary};
+    border: 1px solid ${(props: any) => props.color || props.theme.colors.primary};
     background: transparent;
   `}
 `
