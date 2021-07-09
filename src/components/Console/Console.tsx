@@ -3,15 +3,14 @@ import styled from "styled-components";
 import {Flex} from '../common components/Flex/Flex'
 import {Line} from './Line/Line'
 
-const StyledConsole = styled.textarea`
+const StyledConsole = styled.textarea<{
+    color: string
+}>`
   background: black;
   width: 80%;
   height: 70vh;
   border: none;
   resize: none;
-  //как убрать подчеркивание красными волнистыми линиями? это не работает
-  //spellcheck: false;
-  //text-decoration: none;
   font-size: 1.5rem;
 
   &:focus {
@@ -22,13 +21,11 @@ const StyledConsole = styled.textarea`
 `
 
 interface IConsoleProps {
-    color?: string
+    color: string
 }
 
-type TLines = string[]
-
 export const Console: FC<IConsoleProps> = ({color, ...props}): JSX.Element => {
-    const [lines, setLines] = useState<TLines>(['C/users/desmond333>'])
+    const [lines, setLines] = useState<string[]>(['C/users/desmond333>'])
 
     const onKeyPress: React.KeyboardEventHandler<HTMLTextAreaElement> = (e): void => {
         if (e.key === 'Enter') {
@@ -43,8 +40,7 @@ export const Console: FC<IConsoleProps> = ({color, ...props}): JSX.Element => {
                     return <Line color={color}>{line}</Line>
                 })}
             </Flex>
-            {/*Как передать autofocus?*/}
-            <StyledConsole onKeyPress={onKeyPress} color={color} {...props}/>
+            <StyledConsole spellCheck={false} autoFocus onKeyPress={onKeyPress} color={color} {...props}/>
         </Flex>
     )
 }

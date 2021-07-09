@@ -10,7 +10,13 @@ const rotateAnimation = keyframes`
   }
 `
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{
+    align?: string
+    primary?: boolean
+    outlined?: boolean
+    color?: string
+    background?: string
+}>`
   padding: 10px 15px;
   font-size: 18px;
   border: none;
@@ -27,12 +33,12 @@ const StyledButton = styled.button`
   align-self: ${(props: any) => props.align || 'stretch'};
 
   //группировка стилей на основании пропсов
-  ${(props: any) => props.primary && css`
+  ${props => props.primary && css`
     color: ${(props: any) => props.color || 'black'};
     background: ${(props: any) => props.background || 'white'};
   `}
 
-  ${(props: any) => props.outlined && css`
+  ${props => props.outlined && css`
     color: ${(props: any) => props.color || 'white'};
     border: 1px solid ${(props: any) => props.color || 'white'};
     background: transparent;
